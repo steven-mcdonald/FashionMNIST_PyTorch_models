@@ -1,3 +1,5 @@
+# conda install pytorch using $ conda install pytorch torchvision -c pytorch
+
 import torch
 import torchvision
 from torchvision import transforms, datasets
