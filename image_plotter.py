@@ -12,5 +12,5 @@ def data_loader_img_view(images, labels, nsamples=1):
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
 
-    plt.savefig('fashionMNIST_samples.png', bbox_inches='tight')
+    plt.savefig('data/plots/fashionMNIST_samples.png', bbox_inches='tight')
     plt.show()

@@ -12,6 +12,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 from image_plotter import data_loader_img_view
+from LinearNet import LinearNet
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -105,6 +106,8 @@ if __name__ == '__main__':
         break
 
     nsamples = 10
+
+    # create a dictionary to map the y values to clothing class labels
     label_keys = [x for x in range(10)]
     classes_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag',
                      'Ankle boot']
@@ -112,6 +115,16 @@ if __name__ == '__main__':
 
     labels = [label_dict[k] for k in y_sample.tolist()]
 
-    data_loader_img_view(X_sample, labels, nsamples)
+    # data_loader_img_view(X_sample, labels, nsamples)
+
+    model = LinearNet(1 * 28 * 28, 10)
+
+    use_gpu = torch.cuda.is_available()
+    if use_gpu:
+        device = torch.device('cuda')
+    else:
+        device = torch.device('cpu')
+
+    model.to(device)
 
     print()
