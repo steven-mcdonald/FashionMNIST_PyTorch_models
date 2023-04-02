@@ -1,16 +1,22 @@
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
+import numpy as np
+
+label_keys = [x for x in range(10)]
+classes_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag',
+                 'Ankle boot']
+label_dict = dict(zip(label_keys, classes_names))
 
 
-def data_loader_img_view(images, labels, nsamples=1):
+def image_plotter(dataloader):
+    dataiter = iter(dataloader)
+    images, labels = next(dataiter)
 
-    fig = plt.figure(figsize=(20, 5), facecolor='w')
-    for i in range(nsamples):
-        ax = plt.subplot(1, nsamples, i+1)
-        plt.imshow(images[i, 0, :, :], vmin=0, vmax=1.0, cmap=cm.gray)
-        ax.set_title(f"{labels[i]}", fontsize=15)
-        ax.get_xaxis().set_visible(False)
-        ax.get_yaxis().set_visible(False)
-
-    plt.savefig('data/plots/fashionMNIST_samples.png', bbox_inches='tight')
+    fig = plt.figure(figsize=(15, 5))
+    for idx in np.arange(20):
+        ax = fig.add_subplot(4, 5, idx+1, xticks=[], yticks=[])
+        ax.imshow(np.squeeze(images[idx]), cmap='gray')
+        ax.set_title(label_dict[labels[idx].item()])
+    plt.tight_layout()
+    plt.savefig('data/plots/fashionMNIST_train_samples.png', bbox_inches='tight')
+    plt.show()
     plt.show()
